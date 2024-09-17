@@ -1,0 +1,35 @@
+.container {
+    display: flex;
+    column-gap: 50px;
+}
+
+.board {
+    min-width: 350px;
+    min-height: 550px;
+    background-color: #666666;
+    color: white;
+    border-radius: 20px;
+    padding: 10px 20px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+    align-items: center;
+}
+
+.board__title {
+    font-size: 24px;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.card__title {
+    color:aquamarine;
+    font-weight: bold;
+    border: 2px solid aquamarine;
+    background-color: #666666;
+    border-radius: 10px;
+    padding: 12px 12px;
+    width: 100%;
+    text-align: center;
+    cursor: grab;
+}
