@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import {useState } from 'react'
 import styles from './select.module.css'
 
 interface SelectProps {
@@ -6,6 +6,7 @@ interface SelectProps {
 	childrens: string[]
 }
 
+//можно много чего допилить
 export const Select = (props: SelectProps) => {
 	const title = props.title
 	const childrens = props.childrens
@@ -13,14 +14,16 @@ export const Select = (props: SelectProps) => {
 
 	return (
 		<div className={styles.container}>
-			<button className={styles.open_btn}>{title}</button>
-			<div className={styles.childrens}>
-				{childrens.map((child, index) => (
-					<div key={index} className={styles.child}>
-						{child}
-					</div>
-				))}
-			</div>
+			<button className={styles.open_btn} onClick={() => setVisible(!visible)}>{title}</button>
+			{visible && 
+				<div className={styles.childrens}>
+					{childrens.map((child, index) => (
+						<div key={index} className={styles.child}>
+							{child}
+						</div>
+					))}
+				</div>
+			}
 		</div>
 	)
 }
