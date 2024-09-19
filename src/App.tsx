@@ -1,13 +1,13 @@
+import _ from 'lodash'
 import { useEffect, useState } from 'react'
 import styles from './app.module.css'
 import DragAndDrop from './components/dragAndDrop/dragAndDrop'
 import { Modal } from './components/Modal/modal'
 import { Select } from './components/Select/select'
-import _ from 'lodash'
 
 interface IUserData {
-	clicks: string[],
-	keys: string[],
+	clicks: string[]
+	keys: string
 	timeSpent: number
 }
 
@@ -16,57 +16,58 @@ function App() {
 
 	//селект чисто информационный, либо делать ссылки для перехода
 	const selectTitle = 'Список'
-	const selectChildrens = ['item1', 'item2', 'item3'];
+	const selectChildrens = ['item1', 'item2', 'item3']
 
 	//сбор статистики
-	const [clicks, setClicks] = useState<string[]>([]);
-    const [keys, setKeys] = useState<string[]>([]);
-	const [currentKeyString, setCurrentKeyString] = useState<string>('');
-    const [timeSpent, setTimeSpent] = useState<number>(0);
-    const [startTime] = useState<number>(Date.now());
+	const [clicks, setClicks] = useState<string[]>([])
+	const [currentKeyString, setCurrentKeyString] = useState<string>('')
+	const [startTime] = useState<number>(Date.now())
 
-	const [ userData, setUserData ] = useState<IUserData>();
+	const [userData, setUserData] = useState<IUserData>()
 
-	//допилить дебаунс
-    const debouncedAddKeyString = _.debounce(() => {
-        if (currentKeyString) {
-            setKeys((prevKeys) => [...prevKeys, currentKeyString]);
-            setCurrentKeyString('');
-        }
-    }, 600);
-
-    useEffect(() => {
-        const handleClick = (event: MouseEvent) => {
-            setClicks((prevClicks) => [...prevClicks, (event.target as HTMLElement).className]);
-        };
-
-        const handleKeyDown = (event: KeyboardEvent) => {
-            setCurrentKeyString((prev) => prev + event.key);
-			debouncedAddKeyString();
-        };
-
-        const handleBeforeUnload = () => {
-            const spentTime = Date.now() - startTime;
-            setTimeSpent(spentTime);
-			setUserData({clicks, keys, timeSpent})
-        };
-
-        document.addEventListener('click', handleClick);
-        document.addEventListener('keydown', handleKeyDown);
-        window.addEventListener('beforeunload', handleBeforeUnload);
-
-        return () => {
-            document.removeEventListener('click', handleClick);
-            document.removeEventListener('keydown', handleKeyDown);
-            window.removeEventListener('beforeunload', handleBeforeUnload);
-        };
-    }, [clicks, debouncedAddKeyString, keys, startTime, timeSpent]);
+	const debouncedLog = _.debounce((keyString: string) => {
+		console.log('User input:', keyString)
+	}, 600)
 
 	useEffect(() => {
-		// console.log(userData)
-		console.log('clicks: ' + clicks)
-		console.log('keys: ' + keys)
-	}, [clicks, keys, userData]);
+		const handleClick = (event: MouseEvent) => {
+			setClicks(prevClicks => [
+				...prevClicks,
+				(event.target as HTMLElement).className,
+			])
+		}
+
+		const handleKeyDown = (event: KeyboardEvent) => {
+			setCurrentKeyString(prev => {
+				const newKeyString = prev + event.key
+				debouncedLog(newKeyString)
+				return newKeyString
+			})
+		}
+
+		const handleBeforeUnload = () => {
+			const spentTime = Date.now() - startTime
+			setUserData({
+				clicks: clicks,
+				keys: currentKeyString,
+				timeSpent: spentTime,
+			})
+		}
+
+		document.addEventListener('click', handleClick)
+		document.addEventListener('keydown', handleKeyDown)
+		window.addEventListener('beforeunload', handleBeforeUnload)
+
+		return () => {
+			document.removeEventListener('click', handleClick)
+			document.removeEventListener('keydown', handleKeyDown)
+			window.removeEventListener('beforeunload', handleBeforeUnload)
+		}
+	}, [clicks, currentKeyString, debouncedLog, startTime])
+
+	useEffect(() => {
+		console.log(userData)
+	}, [clicks, userData])
 
 	return (
 		<div className={styles.container}>
