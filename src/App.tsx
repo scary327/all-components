@@ -2,6 +2,7 @@ import _ from 'lodash'
 import { useEffect, useState } from 'react'
 import styles from './app.module.css'
 import DragAndDrop from './components/dragAndDrop/dragAndDrop'
+import { useWhen } from './components/helpers/useWhen'
 import { Modal } from './components/Modal/modal'
 import { Select } from './components/Select/select'
 
@@ -68,6 +69,26 @@ function App() {
 	useEffect(() => {
 		console.log(userData)
 	}, [clicks, userData])
+
+	const condition = 'Условие 1'
+	const parameter = 'Условие 1'
+	if (condition === parameter) {
+		console.log(parameter)
+	}
+
+	//пример хука useWhen
+	const value = 3
+	const result = useWhen(
+		value,
+		[
+			[1, 'Value is one'],
+			[2, 'Value is two'],
+			[3, 'Value is three'],
+		],
+		() => 'Default value'
+	)
+
+	console.log(result)
 
 	return (
 		<div className={styles.container}>

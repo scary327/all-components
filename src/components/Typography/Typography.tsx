@@ -14,6 +14,7 @@ interface Tags {
 	div: 'div'
 }
 //для каждого варианта прописать стили
+//вообще прописать свои варианты
 interface Variants {
 	text_12_m: 'text_12_m'
 	text_14_m: 'text_14_m'
