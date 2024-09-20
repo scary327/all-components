@@ -1,6 +1,7 @@
 import _ from 'lodash'
 import { useEffect, useState } from 'react'
 import styles from './app.module.css'
+import { CustomizeFileUpload } from './components/customizeFileUpload/flieUpload'
 import DragAndDrop from './components/dragAndDrop/dragAndDrop'
 import { useWhen } from './components/helpers/useWhen'
 import { Modal } from './components/Modal/modal'
@@ -102,6 +103,8 @@ function App() {
 			<DragAndDrop />
 			<h2>Select</h2>
 			<Select title={selectTitle} childrens={selectChildrens} />
+			<h2>File upload custom</h2>
+			<CustomizeFileUpload />
 		</div>
 	)
 }
