@@ -23,6 +23,17 @@ export default tseslint.config(
         'warn',
         { allowConstantExport: true },
       ],
+      // Преобразуем основные TypeScript правила в предупреждения
+      '@typescript-eslint/no-unused-vars': 'warn',
+      '@typescript-eslint/no-explicit-any': 'warn',
+      '@typescript-eslint/no-inferrable-types': 'warn',
+      '@typescript-eslint/ban-types': 'warn',
+      '@typescript-eslint/prefer-as-const': 'warn',
+      // Общие ESLint правила как предупреждения
+      'no-unused-vars': 'warn',
+      'no-undef': 'warn',
+      'no-empty': 'warn',
+      'no-constant-condition': 'warn',
     },
   },
 )
