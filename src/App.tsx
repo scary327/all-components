@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import styles from "./app.module.css";
 import { CustomizeFileUpload } from "./components/customizeFileUpload/flieUpload";
-import { useWhen } from "./helpers/useWhen";
+import { useWhen } from "./hooks/useWhen";
 import { Modal } from "./components/Modal/modal";
 import { Select } from "./components/Select/select";
 
