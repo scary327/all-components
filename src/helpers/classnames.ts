@@ -4,7 +4,7 @@ interface ClassnamesObj {
 
 type ClassnamesParams = Array<ClassnamesObj | string | undefined>;
 
-export const classnames = (...args: ClassnamesParams) => {
+const classnames = (...args: ClassnamesParams) => {
   const classNames: (string | ClassnamesObj | undefined)[] = [];
 
   for (let i = 0; i < args.length; i += 1) {
@@ -27,3 +27,6 @@ export const classnames = (...args: ClassnamesParams) => {
 
   return classNames.join(" ");
 };
+
+//экспорт с разными названиями - кому как удобно
+export { classnames, classnames as clsx, classnames as cn };
